@@ -23,4 +23,4 @@ LORA_DROPOUT=0.05
 
 # Generation Configuration
 MAX_NEW_TOKENS=100
-DO_SAMPLE=false
+DO_SAMPLE=true

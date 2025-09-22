@@ -97,7 +97,7 @@ def get_target_modules(model_name):
 
 
 def generate_responses(
-    model, tokenizer, user_message, max_new_tokens=100, do_sample=False
+    model, tokenizer, user_message, max_new_tokens=100, do_sample=True
 ):
     """
     Generate responses using the fine-tuned model.
@@ -118,14 +118,61 @@ def generate_responses(
             **inputs,
             max_new_tokens=max_new_tokens,
             do_sample=do_sample,
+            temperature=0.7,
+            top_p=0.9,
+            repetition_penalty=1.2,
             pad_token_id=tokenizer.eos_token_id,
             eos_token_id=tokenizer.eos_token_id,
+            no_repeat_ngram_size=2,
         )
 
     # Decode response
     response = tokenizer.decode(
         outputs[0][inputs["input_ids"].shape[1] :], skip_special_tokens=True
     )
+
+    response = response.strip()
+
+    # Configuration for response truncation
+    truncation_config = {
+        "default_max_words": 50,
+        "content_types": {
+            "code": {
+                "keywords": ["code", "function", "def ", "import", "class", "```"],
+                "max_words": 80,
+            },
+            "short": {
+                "keywords": ["yes", "no", "simple", "basic", "ok"],
+                "max_words": 30,
+            },
+            "technical": {
+                "keywords": ["algorithm", "model", "training", "neural"],
+                "max_words": 60,
+            },
+        },
+        "stop_tokens": [".", "!", "?", "\n\n", "```", "---", "##"],
+        "ellipsis": "...",
+    }
+
+    words = response.split()
+    max_words = truncation_config["default_max_words"]
+
+    response_lower = response.lower()
+    for content_type, config in truncation_config["content_types"].items():
+        if any(keyword in response_lower for keyword in config["keywords"]):
+            max_words = config["max_words"]
+            break
+
+    if len(words) > max_words:
+        for i in range(max_words, len(words)):
+            if words[i] in truncation_config["stop_tokens"]:
+                response = " ".join(words[: i + 1])
+                break
+        else:
+            response = " ".join(words[:max_words])
+            if not response.endswith((".", "!", "?")):
+                response += truncation_config["ellipsis"]
+
     return response
 
 
