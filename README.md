@@ -1,27 +1,23 @@
 # LLM Post-Training Lab
 
-A comprehensive repository for experimenting with different Large Language Model (LLM) post-training techniques, including Supervised Fine-Tuning (SFT), Direct Preference Optimization (DPO), and Reinforcement Learning (RL).
+This repository contains implementations of post-training techniques for Large Language Models (LLMs), providing hands-on examples for fine-tuning and adapting models for specific tasks.
 
-## Features
+## Overview
 
-- **SFT (Supervised Fine-Tuning)**: Supervised training with high-quality data
-- **DPO (Direct Preference Optimization)**: Direct preference optimization without reward models
-- **RL (Reinforcement Learning)**: Reinforcement learning training using PPO and reward models
+This lab includes practical implementations of various post-training techniques:
 
-## Project Structure
+- **SFT (Supervised Fine-Tuning)** - Complete pipeline with QLoRA for efficient fine-tuning
+- **DPO (Direct Preference Optimization)** - (WIP) Preference-based training
+- **RL (Reinforcement Learning)** - (WIP) RL-based fine-tuning methods
 
-```
-llm-posttraining-lab/
-├── src/                    # Main source code
-│   ├── sft/               # SFT implementation
-│   ├── dpo/               # DPO implementation
-│   └── rl/                # RL implementation
-├── examples/              # Executable examples
-├── data/                  # Training data
-├── configs/               # Configuration files
-└── scripts/               # Training scripts
-```
+## Quick Start
 
-## 📄 License
+Each module contains its own setup instructions and examples. Start with the SFT module for a complete fine-tuning pipeline.
 
-This project is licensed under the MIT License
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+## License
+
+This project is licensed under the MIT License.

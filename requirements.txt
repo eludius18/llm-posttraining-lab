@@ -1,0 +1,10 @@
+torch>=2.0.0
+transformers>=4.44.0
+datasets>=2.16.0
+trl>=0.23.0
+peft>=0.17.0
+bitsandbytes>=0.42.0
+accelerate>=1.10.0
+pandas>=2.0.0
+huggingface_hub>=0.35.0
+python-dotenv>=1.0.0

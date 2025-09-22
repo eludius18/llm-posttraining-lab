@@ -1,0 +1,5 @@
+{"instruction": "Create a function to calculate the sum of a sequence of integers", "input": "[1, 2, 3, 4, 5]", "output": "# Python code\ndef sum_sequence(sequence):\n    sum = 0\n    for num in sequence:\n        sum += num\n    return sum"}
+{"instruction": "Explain what machine learning is", "input": "", "output": "Machine learning is a subset of artificial intelligence that enables computers to learn and make decisions from data without being explicitly programmed for every task."}
+{"instruction": "Write a simple hello world program", "input": "", "output": "# Python hello world program\nprint('Hello, World!')"}
+{"instruction": "What is Python?", "input": "", "output": "Python is a high-level, interpreted programming language known for its simple syntax and versatility. It's widely used in web development, data science, AI, and automation."}
+{"instruction": "How do you create a list in Python?", "input": "", "output": "In Python, you can create a list using square brackets: my_list = [1, 2, 3, 'hello'] or my_list = list() for an empty list."}

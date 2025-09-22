@@ -1,0 +1,26 @@
+# Model Configuration
+MODEL_NAME=gpt2
+USE_GPU=false
+
+# Dataset Configuration
+DATASET_PATH=data/simple_dataset.jsonl
+
+# Training Configuration
+OUTPUT_DIR=./sft_model
+NUM_TRAIN_EPOCHS=1
+PER_DEVICE_TRAIN_BATCH_SIZE=1
+GRADIENT_ACCUMULATION_STEPS=16
+LEARNING_RATE=2e-4
+WARMUP_RATIO=0.05
+LOGGING_STEPS=10
+SAVE_STEPS=500
+EVAL_STEPS=500
+
+# LoRA Configuration
+LORA_R=16
+LORA_ALPHA=32
+LORA_DROPOUT=0.05
+
+# Generation Configuration
+MAX_NEW_TOKENS=100
+DO_SAMPLE=false

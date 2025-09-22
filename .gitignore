@@ -1,11 +1,66 @@
 # Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
 
-# Environments
-.env
-.venv
-env/
+# Virtual environments
+sft_env/
 venv/
+.venv/
+env/
+.env/
+
+# Model outputs and checkpoints
+sft_model/
+sft_model_final/
+checkpoint-*/
+*.pt
+*.pth
+*.bin
+*.safetensors
+models/
+outputs/
+
+# Cache and temporary files
+.cache/
+huggingface/
+.pytest_cache/
+.coverage
+*.tmp
+*.temp
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.staging
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Training outputs
+runs/
+tensorboard_logs/
+wandb/
