@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Setup script for SFT Pipeline
 Automatically creates virtual environment and installs dependencies
@@ -43,7 +42,7 @@ def main():
     # Create virtual environment
     venv_path = Path("sft_env")
     if venv_path.exists():
-        print("⚠️  Virtual environment already exists")
+        print("Virtual environment already exists")
         response = input("Do you want to recreate it? (y/N): ")
         if response.lower() == "y":
             print(" Removing existing environment...")

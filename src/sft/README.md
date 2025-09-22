@@ -24,11 +24,10 @@ src/sft/
 │   └── simple_dataset.jsonl # Example dataset
 ├── helpers/                 # Setup and configuration helpers
 │   ├── setup.py             # Automatic environment setup
-│   ├── create_env.py        # Environment file creator
+│   ├── create_env.py        # Environment file generator
 │   └── env_example.txt      # Configuration template
 ├── sft_model/               # Training checkpoints (generated)
-├── sft_model_final/         # Final model (generated)
-└── README.md                # This file
+└── sft_model_final/         # Final model (generated)
 ```
 
 ## Installation
