@@ -100,10 +100,11 @@ def generate_responses(
     model, tokenizer, user_message, max_new_tokens=100, do_sample=True
 ):
     """
-    Generate responses using the fine-tuned model.
+    Generate responses using the fine-tuned model with Alpaca format.
     """
-    # Format input
-    formatted_input = f"Instruction: {user_message}\nOutput:"
+    # Format input with Alpaca-style prompt
+    prefix_text = 'Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n'
+    formatted_input = f"### Instruction:\n{prefix_text}{user_message}\n\n### Response:\n"
 
     # Tokenize input
     inputs = tokenizer(formatted_input, return_tensors="pt")
@@ -133,46 +134,10 @@ def generate_responses(
 
     response = response.strip()
 
-    # Configuration for response truncation
-    truncation_config = {
-        "default_max_words": 50,
-        "content_types": {
-            "code": {
-                "keywords": ["code", "function", "def ", "import", "class", "```"],
-                "max_words": 80,
-            },
-            "short": {
-                "keywords": ["yes", "no", "simple", "basic", "ok"],
-                "max_words": 30,
-            },
-            "technical": {
-                "keywords": ["algorithm", "model", "training", "neural"],
-                "max_words": 60,
-            },
-        },
-        "stop_tokens": [".", "!", "?", "\n\n", "```", "---", "##"],
-        "ellipsis": "...",
-    }
-
-    words = response.split()
-    max_words = truncation_config["default_max_words"]
-
-    response_lower = response.lower()
-    for content_type, config in truncation_config["content_types"].items():
-        if any(keyword in response_lower for keyword in config["keywords"]):
-            max_words = config["max_words"]
-            break
-
-    if len(words) > max_words:
-        for i in range(max_words, len(words)):
-            if words[i] in truncation_config["stop_tokens"]:
-                response = " ".join(words[: i + 1])
-                break
-        else:
-            response = " ".join(words[:max_words])
-            if not response.endswith((".", "!", "?")):
-                response += truncation_config["ellipsis"]
-
+    # Clean up response
+    if "### Response:" in response:
+        response = response.split("### Response:")[-1].strip()
+    
     return response
 
 
@@ -229,18 +194,18 @@ def display_dataset(dataset):
 
 def generate_prompt(data_point):
     """
-    Generate a simple prompt from instruction, input, and output.
+    Generate Alpaca-style prompt from instruction, input, and output.
     """
+    prefix_text = 'Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n'
+    
     if (
         data_point["input"]
         and data_point["input"] != ""
         and data_point["input"] != "Not applicable"
     ):
-        text = f"Instruction: {data_point['instruction']}\nInput: {data_point['input']}\nOutput: {data_point['output']}"
+        text = f"### Instruction:\n{prefix_text}{data_point['instruction']}\n\n### Input:\n{data_point['input']}\n\n### Response:\n{data_point['output']}"
     else:
-        text = (
-            f"Instruction: {data_point['instruction']}\nOutput: {data_point['output']}"
-        )
+        text = f"### Instruction:\n{prefix_text}{data_point['instruction']}\n\n### Response:\n{data_point['output']}"
 
     return text
 
